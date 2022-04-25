@@ -1,0 +1,1 @@
+Vinventario.blade.php

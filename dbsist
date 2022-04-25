@@ -1,0 +1,142 @@
+drop schema if exists public cascade;
+create schema public;
+create extension if not exists pgcrypto;
+
+create table empresas(
+    id SERIAL NOT NULL PRIMARY KEY,
+    empresa varchar,
+    gerente varchar default null,
+    total_programado double default null
+   
+);
+
+ 
+insert into empresas (empresa, gerente, total_programado)  values
+('ENAUTO', 'coronel',100000),
+('UERH', 'coronel',5000.4);
+
+
+create table presupuestogastado(
+    idtipoproducto SERIAL NOT NULL PRIMARY KEY,
+    grupo varchar,
+    presupuesto_anual decimal default null,
+    fecha date, 
+    total_ejecutado decimal default null,
+    porcentaje_ejecutado decimal default null,
+    eficacia decimal default null
+);
+
+insert into presupuestogastado (grupo, presupuesto_anual, fecha)  values
+('SERVICIOS PERSONALES', 1059351.00,'11-03-2022'),
+('SERVICIOS NO PERSONALES', 7610419.00,'11-02-2022'),
+('MATERIALES Y SUMINISTROS', 1059351.00,'12-03-2022'),
+('ACTIVOS REALES', 568760.00,'11-12-2021'),
+('ACTIVOS FINANCIEROS', 2500.03,'11-03-2022'),
+('SERVICIO DE LA DEUDA PUBLICA Y DISMINUCION', 10194606.00,'11-03-2021'),
+('IMPUESTOS, REGALIAS Y TASAS', 1262185,'11-03-2021');
+
+select * from presupuestogastado;
+
+create table productos(
+    idproducto SERIAL NOT NULL PRIMARY KEY,
+    idempresa integer,
+    producto varchar,
+    programadoanual decimal,
+    foreign key (idempresa) references empresas (idempresa)
+    );
+   
+insert into productos(producto, idempresa, programadoanual) values 
+('Construcción  y Comercialización de Carrozado de vehiculos', 2, 1000000),
+('Construcción de modulos operacionales', 1, 15013.34);
+   
+
+select * from productos;
+
+
+create table ejecutado_prod(
+    idproducto1 SERIAL NOT NULL PRIMARY KEY,
+    idproducto integer,
+    unidad varchar,
+    programadoanual integer,
+    programado_mes integer,
+    cantidad_ejecutada integer,
+    cumplimiento_porcentaje decimal,
+    porcentaje_cumplimiento decimal,
+    total_prod_mes integer,
+    porcentaje_uso_anual decimal,
+    fecha1 date,
+    foreign key (idproducto) references productos (idproducto)
+);
+
+insert into ejecutado_prod(idproducto, unidad, programadoanual, programado_mes, cantidad_ejecutada, fecha1) values 
+(2, 'Pieza', 1000000, 1400, 234,'01-02-2021'),
+(1, 'Global', 150, 30, 5, '01-03-2021');
+
+select * from ejecutado_prod;
+
+CREATE TABLE proyeccion_ingresos(
+    idproyeccion_ingresos serial not null primary key,
+    idproducto integer,
+    name_product varchar,
+    programadoanual1 decimal,
+    programado_mes1 decimal,
+    cantidad_ejecutadames decimal,
+    porcentaje_mes decimal,
+    acumulado_mes decimal,
+    porcentaje_ejecucion_anual decimal,
+    fecha1 date,
+    foreign key (idproducto) references productos (idproducto)
+    
+);
+
+insert into proyeccion_ingresos(idproducto, programadoanual1, programado_mes1, cantidad_ejecutadames, fecha1) values
+(2,2000000.00,30780.00, 1000,'23-02-2022'),
+(2,2000000.00,30780.00, 1000,'23-02-2021');
+
+select * from proyeccion_ingresos;
+
+CREATE TABLE programacion_ingresos(
+    idprogramacion_ingresos serial not null primary key,
+    idproducto integer,
+    Obs varchar,
+    /*programado_mes2 decimal,*/
+    fecha3 date,
+    cantidad integer,
+    precio decimal,
+    ingreso_mes decimal,
+    /*porcentaje_mes decimal,*/
+    total_anual decimal,
+    porcentaje_ejecucion_anual decimal,
+    fecha date default now(),
+    foreign key (idproducto) references productos (idproducto)
+       
+);
+
+insert into programacion_ingresos(idproducto, fecha3, cantidad, precio) values
+(2,'23-02-2022', 30780.00, 307);
+
+create table ejecucion_gastos(
+    idejecuciongastos serial not null primary key,
+    ejecucion_gastos varchar,
+    fecha4 date,
+    ganacia_perdida decimal,
+    total_anual decimal
+);
+
+insert into ejecucion_gastos(ejecucion_gastos, fecha4) values
+('RECURSOS CORRIENTES', '23-02-2022'),
+('GASTOS CORRIENTES', '23-02-2022');
+
+create table inventario_productos(
+    idinvetarios serial NOT NULL PRIMARY KEY,
+    detalle varchar,
+    unidad1 varchar,
+    cantidad1 integer,
+    costo_unitario decimal,
+    costo_tota87 decimal
+    
+);
+insert into inventario_productos(detalle, unidad1, cantidad1, costo_unitario) values
+('DOMOS PARA OFICINA', 'UNI', 55559, 123.3);
+
+select * from inventario_productos;
