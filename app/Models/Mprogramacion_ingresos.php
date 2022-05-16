@@ -14,7 +14,8 @@ class Mprogramacion_ingresos extends Model
     protected $table = 'programacion_ingresos';
     protected $primaryKey = 'idprogramacion_ingresos';
     protected $fillable = [
-        //'idproducto',
+        'idempresa',
+        'idproducto',
         //'obs',
         'fecha3',
         'cantidad',
@@ -30,4 +31,13 @@ class Mprogramacion_ingresos extends Model
 
         return $programacion_ingresos;
     }
+
+         public static function getprogramacion_ingresoss($empresa){
+        $programacion_ingresoss = Mprogramacion_ingresos::where('idempresa', $empresa)->get();
+
+        return $programacion_ingresoss;
+
+
+     }
+
 }

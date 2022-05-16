@@ -15,7 +15,7 @@ class Mproductos extends Model
     protected $table = 'productos';
     protected $primaryKey = 'idproducto';
     protected $fillable = [
-
+        'idempresa',
         'producto',
         'descripcion',
         'unidad'
@@ -23,18 +23,30 @@ class Mproductos extends Model
 
     public $timestamps=false;
 
+    public static function getproducto(){
+        $producto = Mproductos::all();
+
+        return $producto;
+    }
      public static function getproductos($empresa){
-        $productos = Mproductos::where('idempresa', $empresa)->get();
+        $productos = Mproductos::join('empresas', 'empresas.idempresa', '=', 'productos.idempresa')
+        ->where('empresas.idempresa', $empresa)
+        ->orderby('empresas.idempresa','desc')
+        ->get();
 
         return $productos;
 
 
      }
-     public static function getproducto($id){
-        $producto = Mproductos::where('idempresa','=', '2');
-        return $producto;
+         public static function getproducto1($id){
+                $producto1 = Mproductos::find($id);
+
+                return $producto1;
+            }
+             public static function getproductos1($id){
+        $productos1 = Mproductos::find($id);
+
+        return $productos1;
     }
-
-
 
 }

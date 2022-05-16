@@ -28,7 +28,7 @@
      -------------------------------------- -->
     <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
       <a class="navbar-brand col-12 col-md-3 col-lg-2 me-0 px-3" href="https://www.bcb.gob.bo/librerias/indicadores/otras/ultimo.php">TIPO DE CAMBIO</a>
-      <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler position-absolute d-md-none collapsed"  type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <label class="fs-3 text-center text-light w-100">SISTEMA DE SEGUIMIENTO Y CONTROL TECNICO ADMINISTRATIVO - COFADENA</label>
@@ -89,7 +89,7 @@
         <!-- --------------------------------------
                 MAIN
      -------------------------------------- -->
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <main class=" col-md-9 ms-sm-auto col-lg-10 px-md-4">
             @yield('contenido')
             <img src="{{asset('img/bg.png')}}" alt="" class="img-fluid">
         </main>
@@ -101,10 +101,10 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
 
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
     <script src="{{asset('js/dashboard.js')}}"></script>
-	@yield('js')
+  @yield('js')
      <!--   <main>
 
             <div class="container">

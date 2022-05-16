@@ -13,7 +13,9 @@ class Mejecucion_gastos extends Model
     protected $table = 'ejecucion_gastos';
     protected $primaryKey = 'idejecuciongastos';
     protected $fillable = [
+        'idempresa',
         'ejecucion_gastos',
+        'ganancia_mensual',
         'fecha4',
         'ganacia_perdida',
         'total_anual'
@@ -31,6 +33,13 @@ class Mejecucion_gastos extends Model
     //     $categorias = MCategoria::all()->where('estado',1);
     //     return $categorias;
     // }
+     public static function getejecucion_gastoss($empresa){
+        $ejecucion_gastoss = Mejecucion_gastos::where('idempresa', $empresa)->orderby('idempresa','desc')->get();
+
+        return $ejecucion_gastoss;
+
+
+     }
 
 
 }

@@ -3,46 +3,62 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\models\Mproductos_ugc23m;
-use App\models\Mejecutado_prod_ugc23m;
-use App\models\Mproyeccion_ingresos_ugc23m;
-use App\models\Mprogramacion_ingresos_ugc23m;
-use App\models\Mpresupuestogastado_ugc23m;
-use App\models\Mejecucion_gastos_ugc23m;
-use App\models\Minventario_productos_ugc23m;
-use App\models\Mcuentas_ugc23m;
+use App\models\Mempresas;
+use App\models\Mproductos;
+use App\models\Mejecutado_prod;
+use App\models\Mproyeccion_ingresos;
+use App\models\Mprogramacion_ingresos;
+use App\models\Mpresupuestogastado;
+use App\models\Mejecucion_gastos;
+use App\models\Minventario_productos;
+use App\models\Mcuentas;
+use App\models\Mprog_anual_prod;
+use App\models\Mprog_mes_prod;
+use App\models\Mprog_anual_ing;
+use App\models\Mprog_mes_ing;
 
 use Illuminate\Support\Facades\Redirect;
 class Cug23 extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-             $productos_ugc23m = Mproductos_ugc23m::getproductos_ugc23m();
-            $ejecutado_prod_ugc23m = Mejecutado_prod_ugc23m::getejecutado_prod_ugc23m();
-            $proyeccion_ingresos_ugc23m = Mproyeccion_ingresos_ugc23m::getproyeccion_ingresos_ugc23m();
-              $programacion_ingresos_ugc23m = Mprogramacion_ingresos_ugc23m::getprogramacion_ingresos_ugc23m();
-              $presupuestogastado_ugc23m = Mpresupuestogastado_ugc23m::getpresupuestogastado_ugc23m();
-               $ejecucion_gastos_ugc23m = Mejecucion_gastos_ugc23m::getejecucion_gastos_ugc23m();
-               $inventario_productos_ugc23m = Minventario_productos_ugc23m::getinventario_productos_ugc23m();
-               $cuentas_cobro_ugc23m = Mcuentas_ugc23m::getcuentas_cobro_ugc23m();
+
+        $prog_anual_prods = Mprog_anual_prod::getprog_anual_prods('3');
+            $empresa = Mempresas::getempresa('3');
+            $productos = Mproductos::getproductos('3');
+            $ejecutado_prods = Mejecutado_prod::getejecutado_prods('3');
+            $proyeccion_ingresoss = Mproyeccion_ingresos::getproyeccion_ingresoss('3');
+              $programacion_ingresoss = Mprogramacion_ingresos::getprogramacion_ingresoss('3');
+              $prog_anual_prods = Mprog_anual_prod::getprog_anual_prods('3');
+              $prog_anual_ings = Mprog_anual_ing::getprog_anual_ings('3');
+              $prog_mes_prods = Mprog_mes_prod::getprog_mes_prods('3');
+              $prog_mes_ings = Mprog_mes_ing::getprog_mes_ings('3');
+              $presupuestogastados = Mpresupuestogastado::getpresupuestogastados('3');
+               $ejecucion_gastoss = Mejecucion_gastos::getejecucion_gastoss('3');
+               $inventario_productoss = Minventario_productos::getinventario_productoss('3');
+               $cuentas_cobros = Mcuentas::getcuentas_cobros('3');
             //print_r($empresas);
         return view('empresas/Vug23')
             ->with ([
-              //'empresas'=>$empresas,
-                'productos_ugc23m'=>$productos_ugc23m,
-                'ejecutado_prod_ugc23m'=>$ejecutado_prod_ugc23m,
-                'proyeccion_ingresos_ugc23m'=>$proyeccion_ingresos_ugc23m,
-                'programacion_ingresos_ugc23m'=>$programacion_ingresos_ugc23m,
-                'presupuestogastado_ugc23m'=>$presupuestogastado_ugc23m,
-                'ejecucion_gastos_ugc23m'=>$ejecucion_gastos_ugc23m,
-                'inventario_productos_ugc23m'=>$inventario_productos_ugc23m,
-                'cuentas_cobro_ugc23m'=>$cuentas_cobro_ugc23m,
+                'empresa'=>$empresa,
+                'productos'=>$productos,
+                'ejecutado_prods'=>$ejecutado_prods,
+                'proyeccion_ingresoss'=>$proyeccion_ingresoss,
+                'programacion_ingresoss'=>$programacion_ingresoss,
+                'prog_anual_prods'=>$prog_anual_prods,
+                'prog_anual_ings'=>$prog_anual_ings,
+                'prog_mes_prods'=>$prog_mes_prods,
+                'prog_mes_ings'=>$prog_mes_ings,
+                'presupuestogastados'=>$presupuestogastados,
+                'ejecucion_gastoss'=>$ejecucion_gastoss,
+                'inventario_productoss'=>$inventario_productoss,
+                'cuentas_cobros'=>$cuentas_cobros,
             ]);
+
+
+                //'presupuestogastado'=>$presupuestogastado,
+                //'productos'=>$productos,
 
 
     }

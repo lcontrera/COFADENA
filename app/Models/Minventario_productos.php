@@ -13,11 +13,13 @@ class Minventario_productos extends Model
     protected $table = 'inventario_productos';
     protected $primaryKey = 'idinvetarios';
     protected $fillable = [
+        'idempresa',
         'detalle',
         'unidad1',
         'cantidad1',
         'costo_unitario',
-        'costo_total87'
+        'costo_total87',
+        'fecha5'
     ];
 
     public $timestamps=false;
@@ -33,4 +35,13 @@ class Minventario_productos extends Model
     // }
 
     // OBTENER
+     public static function getinventario_productoss($empresa){
+        $inventario_productoss = Minventario_productos::where('idempresa', $empresa)->orderby('idempresa','desc')->get();
+
+        return $inventario_productoss;
+
+
+     }
+
 }
+

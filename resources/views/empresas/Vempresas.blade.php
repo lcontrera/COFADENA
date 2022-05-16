@@ -3,7 +3,7 @@
 
 
             <div class="container">
-              <div class="row row-cols-1 row-cols-md-2 g-4">
+              <div class="row row-cols-1 row-cols-md-3 g-6">
                 <div class="col" style="width: 410px; margin-right: 30px;">
                   <div class="card">
                     <a href="/uerh"><img src="{{asset('img/UERH.jpg')}}" class="card-img-top" alt="..."></a>
@@ -61,22 +61,35 @@
                       <p class="card-text">EMPRESA NACIONAL AUTOMOTRIZ</p>
                     </div>
                   </div>
+                </div>
                   <div class="col" style="width: 410px; margin-right: 30px;">
                   <div class="card">
                     <a href="/fbm"><img src="{{asset('img/FBM.png')}}" class="card-img-top" alt="..."></a>
-                    <!--<img src="{{asset('img/FBM.png')}}" class="card-img-top" alt="...">-->
-                    <div class="card-body text-white bg-primary mb-3 active">
+                    <div class="card-body text-white bg-primary mb-3">
 
-                      <a class="nav link text-white " href="/ugc23m">
+                      <a class="nav link text-white" href="/fbm">
                         <span data-feather="layers"></span>
                         FBM
                       </a>
 
-                     <p class="card-text">FÁBRICA BOLIVIANA DE MUNICIÓN</p>
+                      <p class="card-text">FÁBRICA BOLIVIANA DE MUNICIÓN</p>
                     </div>
                   </div>
                 </div>
-              </div>
+                <div class="col" style="width: 410px; margin-right: 30px;">
+                  <div class="card">
+                    <a href="/uepi"><img src="{{asset('img/UEPII.jpg')}}" class="card-img-top" alt="..."></a>
+                    <!--<img src="{{asset('img/ENAUTO.jpg')}}" class="card-img-top" alt="...">-->
+                    <div class="card-body text-white bg-primary mb-3">
+                      <a class="nav link text-white" href="/uepi">
+                        <span data-feather="layers"></span>
+                        UEPII
+                      </a>
+                      <p class="card-text">UNIDAD DE EJECUCIÓN DE INFRAESTRUCTURA E INGENIERÍA</p>
+                    </div>
+                  </div>
+                  </div>
+                  </div>
 
 </div>
 @endsection

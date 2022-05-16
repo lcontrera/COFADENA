@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-//use App\models\Mempresas;
+use App\models\Mempresas;
 use App\models\Mproductos;
 use App\models\Mejecutado_prod;
 use App\models\Mproyeccion_ingresos;
@@ -29,47 +29,37 @@ class Cuerh extends Controller
      */
     public function index()
     {
-        /*return DB::select("
-        select * from prog_anual_prod pr inner join productos p on pr.idproducto =p.idproducto
-            ");*/
-
-            //$empresas = Mempresas::getempresas();
-            // JOIN Programado anual y producto
-
+        $prog_anual_prods = Mprog_anual_prod::getprog_anual_prods('1');
+            $empresa = Mempresas::getempresa('1');
             $productos = Mproductos::getproductos('1');
-            $ejecutado_prod = Mejecutado_prod::getejecutado_prod();
-            $proyeccion_ingresos = Mproyeccion_ingresos::getproyeccion_ingresos();
-              $programacion_ingresos = Mprogramacion_ingresos::getprogramacion_ingresos();
-              $prog_anual_prod = Mprog_anual_prod::getprog_anual_prod();
-              $prog_anual_ing = Mprog_anual_ing::getprog_anual_ing();
-              $prog_mes_prod = Mprog_mes_prod::getprog_mes_prod();
-              $prog_mes_ing = Mprog_mes_ing::getprog_mes_ing();
-              $presupuestogastado = Mpresupuestogastado::getpresupuestogastado();
-               $ejecucion_gastos = Mejecucion_gastos::getejecucion_gastos();
-               $inventario_productos = Minventario_productos::getinventario_productos();
-               $cuentas_cobro = Mcuentas::getcuentas_cobro();
+            $ejecutado_prods = Mejecutado_prod::getejecutado_prods('1');
+            $proyeccion_ingresoss = Mproyeccion_ingresos::getproyeccion_ingresoss('1');
+              $programacion_ingresoss = Mprogramacion_ingresos::getprogramacion_ingresoss('1');
+              $prog_anual_prods = Mprog_anual_prod::getprog_anual_prods('1');
+              $prog_anual_ings = Mprog_anual_ing::getprog_anual_ings('1');
+              $prog_mes_prods = Mprog_mes_prod::getprog_mes_prods('1');
+              $prog_mes_ings = Mprog_mes_ing::getprog_mes_ings('1');
+              $presupuestogastados = Mpresupuestogastado::getpresupuestogastados('1');
+               $ejecucion_gastoss = Mejecucion_gastos::getejecucion_gastoss('1');
+               $inventario_productoss = Minventario_productos::getinventario_productoss('1');
+               $cuentas_cobros = Mcuentas::getcuentas_cobros('1');
             //print_r($empresas);
         return view('empresas/Vuerh')
             ->with ([
-              //'empresas'=>$empresas,
+                'empresa'=>$empresa,
                 'productos'=>$productos,
-                'ejecutado_prod'=>$ejecutado_prod,
-                'proyeccion_ingresos'=>$proyeccion_ingresos,
-                'programacion_ingresos'=>$programacion_ingresos,
-                'prog_anual_prod'=>$prog_anual_prod,
-                'prog_anual_ing'=>$prog_anual_ing,
-                'prog_mes_prod'=>$prog_mes_prod,
-                'prog_mes_ing'=>$prog_mes_ing,
-                'presupuestogastado'=>$presupuestogastado,
-                'ejecucion_gastos'=>$ejecucion_gastos,
-                'inventario_productos'=>$inventario_productos,
-                'cuentas_cobro'=>$cuentas_cobro,
+                'ejecutado_prods'=>$ejecutado_prods,
+                'proyeccion_ingresoss'=>$proyeccion_ingresoss,
+                'programacion_ingresoss'=>$programacion_ingresoss,
+                'prog_anual_prods'=>$prog_anual_prods,
+                'prog_anual_ings'=>$prog_anual_ings,
+                'prog_mes_prods'=>$prog_mes_prods,
+                'prog_mes_ings'=>$prog_mes_ings,
+                'presupuestogastados'=>$presupuestogastados,
+                'ejecucion_gastoss'=>$ejecucion_gastoss,
+                'inventario_productoss'=>$inventario_productoss,
+                'cuentas_cobros'=>$cuentas_cobros,
             ]);
-
-
-                //'presupuestogastado'=>$presupuestogastado,
-                //'productos'=>$productos,
-
 
     }
 
@@ -80,14 +70,10 @@ class Cuerh extends Controller
      */
     public function create()
     {
-
+        return view('empresas/Vfichas');
         //return view('empresas/Vproductos');
 
-        $productos=Mproductos::getproductos("");
-            return view('create/Vprog_anual_prod',['productos'=>$productos]);
-
-        return view('empresas/Vproduccion');
-    }
+          }
 
     /**
      * Store a newly created resource in storage.
@@ -153,12 +139,12 @@ class Cuerh extends Controller
      */
     public function edit($id)
     {
-         // >>> getCategoria(id)
-        $prog_anual_prod = Mproductos::getproductos($id);
-        // <<< show(categoria)
 
+        $empresas1 = Mempresas::find($id);
 
-        return view('prog_anual_prod/Vprog_anual_prod',['productos'=>$productos]);
+        return view('edit/Veditemp',['empresas1'=>$empresas1]);
+        //$empresas1 = Mempresas::getempresas1($id);
+        //return view('edit/Veditemp',['$empresas1=>$empresas1']);
     }
 
     /**
@@ -168,29 +154,104 @@ class Cuerh extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+      public function editpro($id)
+    {
+
+        $productos1 = Mproductos::find($id);
+
+        return view('edit/Veditprod',['productos1'=>$productos1]);
+        //$empresas1 = Mempresas::getempresas1($id);
+        //return view('edit/Veditemp',['$empresas1=>$empresas1']);
+    }
+
+    public function editproganual($id)
+    {
+
+        $prog_anual_prodd = Mprog_anual_prod::find($id);
+
+        return view('edit/Vprodanual',['prog_anual_prodd'=>$prog_anual_prodd]);
+        //$empresas1 = Mempresas::getempresas1($id);
+        //return view('edit/Veditemp',['$empresas1=>$empresas1']);
+    }
+
+     public function editprogmensual($id)
+    {
+
+        $prog_mensual_prodd = Mprog_mes_prod::find($id);
+
+        return view('edit/Vprogmensual',['prog_mensual_prodd'=>$prog_mensual_prodd]);
+        //$empresas1 = Mempresas::getempresas1($id);
+        //return view('edit/Veditemp',['$empresas1=>$empresas1']);
+    }
     public function update(Request $request, $id)
     {
          // >>> getproducto(id)
-        $producto = Mproductos::getproducto($id);
+        $empresas1 = Mempresas::getempresas1($id);
         // >>> setDatos()
-        $producto->producto= $request->tbproducto;
-        $producto->descripcion=$request->tbdescripcion;
+        $empresas1->empresa= $request->tbempresa;
+        $empresas1->descripcion=$request->tbdescripcion;
+        $empresas1->gerente=$request->tbgerente;
+        $empresas1->telefono=$request->tbtelefono;
+        $empresas1->direccion=$request->tbdireccion;
         // >>> update()
-        $producto->update();
+        $empresas1->update();
         // === index()
 
-        return Redirect::to('/productos');
+        return Redirect::to('/uerh');
 
-        $produccion = Mejecutado_prod::getproduccion($id);
-         $produccion->cantidad_ejecutada = $request->tbcantidad_ejecutada;
-        $produccion->cumplimiento_porcentaje = $request->tbcumplimiento_porcentaje;
-        $produccion->total_prod_mes = $request->tbtotal_prod_mes;
-        $produccion->porcentaje_cumplimiento = $request->tbporcentaje_cumplimiento;
-        $produccion->porcentaje_uso_anual = $request->tbporcentaje_cumplimiento_anual;
-        $produccion->fecha1 = $request->tbfecha1;$produccion->update();
+
+    }
+    public function updatepro(Request $request, $id)
+    {
+         // >>> getproducto(id)
+        $productos1 = Mproductos::getproductos1($id);
+        // >>> setDatos()
+        $productos1->producto= $request->tbproducto;
+        $productos1->descripcion=$request->tbdescripcion;
+        $productos1->unidad=$request->tbunidad;
+
+        // >>> update()
+        $productos1->update();
         // === index()
 
-        return Redirect::to('/produccion');
+        return Redirect::to('/uerh');
+
+
+    }
+
+    public function updateproganual(Request $request, $id)
+    {
+         // >>> getproducto(id)
+        $prog_anual_prodd = Mprog_anual_prod::getprog_anual_prodd($id);
+        // >>> setDatos()
+        $prog_anual_prodd->programado= $request->tbprogramado;
+        $prog_anual_prodd->anho=$request->tbanho;
+
+        // >>> update()
+        $prog_anual_prodd->update();
+        // === index()
+
+        return Redirect::to('/uerh');
+
+
+    }
+
+    public function updateprogmensual(Request $request, $id)
+    {
+         // >>> getproducto(id)
+        $prog_mensual_prodd = Mprog_mes_prod::getprog_mensual_prodd($id);
+        // >>> setDatos()
+        $prog_mensual_prodd->programado_mes= $request->tbprogmensual;
+        $prog_mensual_prodd->mes=$request->tbmes;
+
+
+        // >>> update()
+        $prog_mensual_prodd->update();
+        // === index()
+
+        return Redirect::to('/uerh');
+
+
     }
 
     /**
@@ -199,27 +260,15 @@ class Cuerh extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(int $id_producto)
     {
-        //
-    }
-    public function productos()
-    {
-
-        return view('create/Vproductos');
-
-
-    }
-    public function produccion()
-    {
-
-        return view('create/Vproduccion');
+        //$producto1 = Mproductos::findOrFail($id_producto);
+        $producto1 = Mproductos::findOrFail($id_producto);
+        //dd($pro);
+        //$producto1 = Mproductos::getproducto1($id);
+        $producto1->delete();
+        return Redirect::to('/uerh');
 
     }
-    public function prog_anual_prod()
-    {
 
-        return view('create/Vprog_anual_prod');
-
-    }
 }

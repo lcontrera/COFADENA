@@ -3,47 +3,57 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\models\Mproductos_upab;
-use App\models\Mejecutado_prod__upab;
-use App\models\Mproyeccion_ingresos_upab;
-use App\models\Mprogramacion_ingresos_upab;
-use App\models\Mpresupuestogastado_upab;
-use App\models\Mejecucion_gastos_upab;
-use App\models\Minventario_productos_upab;
-use App\models\Mcuentas_upab;
+use App\models\Mempresas;
+use App\models\Mproductos;
+use App\models\Mejecutado_prod;
+use App\models\Mproyeccion_ingresos;
+use App\models\Mprogramacion_ingresos;
+use App\models\Mpresupuestogastado;
+use App\models\Mejecucion_gastos;
+use App\models\Minventario_productos;
+use App\models\Mcuentas;
+use App\models\Mprog_anual_prod;
+use App\models\Mprog_mes_prod;
+use App\models\Mprog_anual_ing;
+use App\models\Mprog_mes_ing;
+
 
 use Illuminate\Support\Facades\Redirect;
 class Cupab extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-            //$empresas = Mempresas::getempresas();
-
-            $productos_upab = Mproductos_upab::getproductos_upab();
-            $ejecutado_prod_upab = Mejecutado_prod__upab::getejecutado_prod_upab();
-            $proyeccion_ingresos_upab = Mproyeccion_ingresos_upab::getproyeccion_ingresos_upab();
-              $programacion_ingresos_upab = Mprogramacion_ingresos_upab::getprogramacion_ingresos_upab();
-              $presupuestogastado_upab = Mpresupuestogastado_upab::getpresupuestogastado_upab();
-               $ejecucion_gastos_upab = Mejecucion_gastos_upab::getejecucion_gastos_upab();
-               $inventario_productos_upab = Minventario_productos_upab::getinventario_productos_upab();
-               $cuentas_cobro_upab = Mcuentas_upab::getcuentas_cobro_upab();
+        $prog_anual_prods = Mprog_anual_prod::getprog_anual_prods('2');
+            $empresa = Mempresas::getempresa('2');
+            $productos = Mproductos::getproductos('2');
+            $ejecutado_prods = Mejecutado_prod::getejecutado_prods('2');
+            $proyeccion_ingresoss = Mproyeccion_ingresos::getproyeccion_ingresoss('2');
+              $programacion_ingresoss = Mprogramacion_ingresos::getprogramacion_ingresoss('2');
+              $prog_anual_prods = Mprog_anual_prod::getprog_anual_prods('2');
+              $prog_anual_ings = Mprog_anual_ing::getprog_anual_ings('2');
+              $prog_mes_prods = Mprog_mes_prod::getprog_mes_prods('2');
+              $prog_mes_ings = Mprog_mes_ing::getprog_mes_ings('2');
+              $presupuestogastados = Mpresupuestogastado::getpresupuestogastados('2');
+               $ejecucion_gastoss = Mejecucion_gastos::getejecucion_gastoss('2');
+               $inventario_productoss = Minventario_productos::getinventario_productoss('2');
+               $cuentas_cobros = Mcuentas::getcuentas_cobros('2');
             //print_r($empresas);
         return view('empresas/Vupab')
             ->with ([
-              //'empresas'=>$empresas,
-                'productos_upab'=>$productos_upab,
-                'ejecutado_prod_upab'=>$ejecutado_prod_upab,
-                'proyeccion_ingresos_upab'=>$proyeccion_ingresos_upab,
-                'programacion_ingresos_upab'=>$programacion_ingresos_upab,
-                'presupuestogastado_upab'=>$presupuestogastado_upab,
-                'ejecucion_gastos_upab'=>$ejecucion_gastos_upab,
-                'inventario_productos_upab'=>$inventario_productos_upab,
-                'cuentas_cobro_upab'=>$cuentas_cobro_upab,
+                'empresa'=>$empresa,
+                'productos'=>$productos,
+                'ejecutado_prods'=>$ejecutado_prods,
+                'proyeccion_ingresoss'=>$proyeccion_ingresoss,
+                'programacion_ingresoss'=>$programacion_ingresoss,
+                'prog_anual_prods'=>$prog_anual_prods,
+                'prog_anual_ings'=>$prog_anual_ings,
+                'prog_mes_prods'=>$prog_mes_prods,
+                'prog_mes_ings'=>$prog_mes_ings,
+                'presupuestogastados'=>$presupuestogastados,
+                'ejecucion_gastoss'=>$ejecucion_gastoss,
+                'inventario_productoss'=>$inventario_productoss,
+                'cuentas_cobros'=>$cuentas_cobros,
             ]);
 
 

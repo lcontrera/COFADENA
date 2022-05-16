@@ -12,10 +12,12 @@ class Mpresupuestogastado extends Model
     // ATRIBUTOS
 
     protected $table = 'presupuestogastado';
-    protected $primaryKey = 'idtipoproducto';
+    protected $primaryKey = 'idpresupuestogastado';
     protected $fillable = [
+        'idempresa',
         'grupo',
         'presupuesto_anual',
+        'ganancia_mensual',
         'fecha',
         'total_ejecutado',
         'porcentaje_ejecutado',
@@ -36,4 +38,13 @@ class Mpresupuestogastado extends Model
 
         return $presupuestogastado;
 }
+     public static function getpresupuestogastados($empresa){
+        $presupuestogastados = Mpresupuestogastado::where('idempresa', $empresa)->get();
+
+        return $presupuestogastados;
+
+
+     }
+
+
 }

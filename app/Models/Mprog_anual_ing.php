@@ -11,6 +11,7 @@ class Mprog_anual_ing extends Model
          protected $table = 'prog_anual_ing';
      protected $primaryKey = 'idprog_anual_ing';
      protected $fillable = [
+     	'idempresa',
      	'idproducto',
         'programado1',
         'anho1'
@@ -22,6 +23,13 @@ class Mprog_anual_ing extends Model
 
         return $prog_anual_ing;
     }
+         public static function getprog_anual_ings($empresa){
+        $prog_anual_ings = Mprog_anual_ing::where('idempresa', $empresa)->get();
+
+        return $prog_anual_ings;
+
+
+     }
 
 
 }

@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\Mprog_anual_ing;
+use App\Models\Mprog_mes_ing;
 class Mproyeccion_ingresos extends Model
 {
     use HasFactory;
@@ -14,6 +15,9 @@ class Mproyeccion_ingresos extends Model
     protected $table = 'proyeccion_ingresos';
     protected $primaryKey = 'idproyeccion_ingresos';
     protected $fillable = [
+        'idempresa',
+        'idprog_mes_ing',
+        'idprog_anual_ing',
         'cantidad_ejecutadames',
         'porcentaje_mes',
         'acumulado_mes',
@@ -27,4 +31,15 @@ class Mproyeccion_ingresos extends Model
 
         return $proyeccion_ingresos;
     }
+     public static function getproyeccion_ingresoss($empresa){
+        $proyeccion_ingresoss = Mproyeccion_ingresos::where('idempresa', $empresa)->get();
+
+        return $proyeccion_ingresoss;
+
+
+     }
+
+
 }
+
+

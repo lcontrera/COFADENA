@@ -15,6 +15,7 @@ class Cempresas extends Controller
      */
     public function index()
     {
+
         return view('empresas/Vempresas');
     }
 
@@ -25,7 +26,8 @@ class Cempresas extends Controller
      */
     public function fichas()
     {
-
+        $empresas=Mempresas::getempresas("");
+            return view('empresas/Vfichas',['empresas'=>$empresas]);
 
 
     }

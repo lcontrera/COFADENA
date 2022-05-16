@@ -11,6 +11,7 @@ class Mcuentas extends Model
     	protected $table = 'cuentas_cobro';
     protected $primaryKey = 'idcuentas';
     protected $fillable = [
+        'idempresa',
         'descripcion',
         'deudor',
         'monto_total',
@@ -34,4 +35,13 @@ class Mcuentas extends Model
 
 	        return $cuentas_cobro;
 }
+         public static function getcuentas_cobros($empresa){
+        $cuentas_cobros = Mcuentas::where('idempresa', $empresa)->get();
+
+        return $cuentas_cobros;
+
+
+     }
+
+
 }
