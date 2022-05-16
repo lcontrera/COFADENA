@@ -214,7 +214,7 @@
 						         <?php
 				                        foreach($prog_mes_prod as $c){
 				                            echo '
-				                            <option value="'.$c->idprog_mes_prod.'">'.$c->programado_mes.'</option>
+				                            <option value="'.$c->idprog_mes_prod.'">'.$c->programado_mes.' - '.$c->mes.'</option>
 				                        ';}
 				                    ?>
 				                </select>
@@ -234,8 +234,9 @@
 						      <label for="floatingSelectGrid">Programado anual</label>
 						    </div>
 						  </div>
-						</div>
+
               </div>
+
             <div class="mb-3">
                   <label for="tcantidad_ejecutada" class="form-label">Cantidad ejecutada</label>
                   <input  type="number" step="any" id="tbcantidad_ejecutada" name="tbcantidad_ejecutada" class="form-control" placeholder="Ingrese cantidad ejecutada..."requiered >
@@ -339,7 +340,7 @@
             </form>
 
                 <hr>
-                <!--<h3>PROYECCIÓN DE INGRESOS</h3>
+                <h3>PROYECCIÓN DE INGRESOS</h3>
                 <hr>
                 <form action="/storeingresos" method="POST">
                   {{csrf_field()}}
@@ -405,7 +406,7 @@
                 <input type="submit" value="Guardar" class="btn btn-success mt-5">
                 <button class="btn btn-warning mt-5" type="reset"> Cancelar</button>
 
-            </form>-->
+            </form>
             	<hr id="pi">
             	 <hr>
                 <h3>PROGRAMACIÓN INGRESOS</h3>

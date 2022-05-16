@@ -129,7 +129,11 @@
             <tr>
                 <th scope="col">PRODUCTO</th>
                 <th scope="col">CANTIDAD EJECUTADA</th>
+                <th scope="col">PROG MES</th>
+                <th scope="col">TOTAL EJECUTADO MES</th>
                 <th scope="col">CUMPLIMIENTO MENSUAL (%)</th>
+                <th scope="col">PROG ANUAL</th>
+                <th scope="col">TOTAL EJECUTADO ANUAL</th>
                 <th scope="col">CUMPLIMIENTO ANUAL (%) </th>
                 <th scope="col">FECHA</th>
 
@@ -140,16 +144,18 @@
             <tr>
               <td>{{$p->producto}}</td>
               <td>{{$p->cantidad_ejecutada}}</td>
-              <td>{{$p->cumplimiento_porcentaje}}</td>
-
-
-              <td>{{$p->porcentaje_uso_anual}}</td>
+              <td>{{$p->programado_mes}}</td>
+              <td>{{$p->ejecutado_mes}}</td>
+              <td>{{$p->porcentaje_mes}} %</td>
+              <td>{{$p->programado}}</td>
+              <td>{{$p->ejecutado_anho}}</td>
+              <td>{{$p->porcentaje_anho}} %</td>
               <td>{{$p->fecha1}}</td>
               <td>
                 <!--recordar modificar edit C empresas-->
-                <a href="/eliminar/{{$p->idproducto1}}">
+                {{--  <a href="/eliminar/{{$p->idproducto1}}">
                   <button type="button" class="btn btn-danger">Eliminar</button>
-                </a>
+                </a>  --}}
               </td>
             </tr>
             @endforeach

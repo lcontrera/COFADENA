@@ -158,12 +158,12 @@ public function storeproduccion(Request $request)
     {
   $idempresa = $request->cbempresa;
  $idproducto = $request->cbproducto;
- $idprog_mes_prod = $request->cbrog_mes_prod;
+ $prog_mes_prod = $request->cbprog_mensual_prod;
  $idprog_anual_prod = $request->cbprog_anual_prod;
  $cantidad_ejecutada = $request->tbcantidad_ejecutada;
  $fecha1 = $request->tbfecha1;
  //$producto->producto = $request->input('cbproductos');
-      DB::insert('insert into ejecutado_prod (idempresa, idproducto, idprog_mes_prod, idprog_anual_prod, cantidad_ejecutada, fecha1) values(?, ?, ?, ?,?,?)',[$idempresa, $idproducto,$prog_mes_prods,$idprog_anual_prod, $cantidad_ejecutada, $fecha1]);
+      DB::insert('insert into ejecutado_prod (idempresa, idproducto, idprog_mes_prod, idprog_anual_prod, cantidad_ejecutada, fecha1) values(?, ?, ?, ?,?,?)',[$idempresa, $idproducto,$prog_mes_prod,$idprog_anual_prod, $cantidad_ejecutada, $fecha1]);
 
 
         switch ($idempresa) {
