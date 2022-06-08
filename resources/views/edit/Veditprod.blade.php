@@ -16,8 +16,8 @@
 
 						    </div>
 						    <div class="mb-3">
-						      <label for="tdescripcion" class="form-label">Descripción</label>
-						      <input type="text" id="descripcion" name="tbdescripcion" class="form-control" value="<?php echo $productos1->descripcion;?>">
+						      <label for="tdescripcionn" class="form-label">Descripción</label>
+						      <input type="text" id="descripcionn" name="tbdescripcionn" class="form-control" value="<?php echo $productos1->descripcionn;?>">
 						    </div>
 						    <div class="mb-3">
 						      <label for="tunidad" class="form-label">Unidad</label>

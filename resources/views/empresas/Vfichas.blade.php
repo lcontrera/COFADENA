@@ -1,5 +1,6 @@
 @extends('principal/Vprincipal')
 @section('contenido')
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
             <div class="container">
               <hr>
                 <h3>FICHAS TECNICAS</h3>
@@ -37,6 +38,10 @@
 						      <label for="tdireccion" class="form-label">Dirección</label>
 						      <input type="text" id="tbdireccion" name="tbdireccion" class="form-control" placeholder="Dirección...">
 						    </div>
+						    <div class="mb-3">
+						      <label for="tpersona" class="form-label">Persona de enlace y cargo</label>
+						      <input type="text" id="tbpersona" name="tbpersona" class="form-control" placeholder="Dirección...">
+						    </div>
 						    <input type="submit" value="Guardar" class="btn btn-success mt-5">
                 <button class="btn btn-warning mt-5" type="reset"> Cancelar</button>
             </fieldset>
@@ -70,8 +75,8 @@
               		  </div>
 
                 <div class="mb-3">
-                  <label for="tdescripcion" class="form-label">Descripción</label>
-                  <input type="text" id="tbdescripcion" name="tbdescripcion" class="form-control" placeholder="Ingrese descripcion..."requiered>
+                  <label for="tdescripcionn" class="form-label">Descripción</label>
+                  <input type="text" id="tbdescripcionn" name="tbdescripcionn" class="form-control" placeholder="Ingrese descripcion..."requiered>
                 </div>
                 <div class="mb-3">
                   <label for="tunidad" class="form-label">Unidad</label>
@@ -110,7 +115,7 @@
                     <?php
                         foreach($producto as $c){
                             echo '
-                            <option value="'.$c->idproducto.'">'.$c->producto.'</option>
+                            <option value="'.$c->idproducto.'">'.$c->idproducto.'-'.$c->producto.'</option>
                         ';}
                     ?>
                 </select>
@@ -156,7 +161,7 @@
                     <?php
                         foreach($producto as $c){
                             echo '
-                            <option value="'.$c->idproducto.'">'.$c->producto.'</option>
+                            <option value="'.$c->idproducto.'">'.$c->idproducto.'-'.$c->producto.'</option>
                         ';}
                     ?>
                 </select>
@@ -185,6 +190,7 @@
 
                                     <div class="mb-3">
 						      <!-- EMPRESA  -->
+
 				                <label for="tbempresa" class="form-label">EMPRESAS</label>
 				                <select id="tbempresa" name="cbempresa"  class="form-control form-select form-select-lg mb-3">
 				                    <?php
@@ -202,7 +208,7 @@
                     <?php
                         foreach($producto as $c){
                             echo '
-                            <option value="'.$c->idproducto.'">'.$c->producto.'</option>
+                            <option value="'.$c->idproducto.'">'.$c->idproducto.'-'.$c->producto.'</option>
                         ';}
                     ?>
                 </select>
@@ -214,7 +220,7 @@
 						         <?php
 				                        foreach($prog_mes_prod as $c){
 				                            echo '
-				                            <option value="'.$c->idprog_mes_prod.'">'.$c->programado_mes.' - '.$c->mes.'</option>
+				                            <option value="'.$c->idprog_mes_prod.'">'.$c->programado_mes.' - ('.$c->mes.') - '.$c->idproducto.'</option>
 				                        ';}
 				                    ?>
 				                </select>
@@ -227,7 +233,7 @@
 						         <?php
 				                        foreach($prog_anual_prod as $c){
 				                            echo '
-				                            <option value="'.$c->idprog_anual_prod.'">'.$c->programado.' - '.$c->anho.'</option>
+				                            <option value="'.$c->idprog_anual_prod.'">'.$c->programado.' - ('.$c->anho.') - '.$c->idproducto.'</option>
 				                        ';}
 				                    ?>
 				                </select>
@@ -275,7 +281,7 @@
                     <?php
                         foreach($producto as $c){
                             echo '
-                            <option value="'.$c->idproducto.'">'.$c->producto.'</option>
+                            <option value="'.$c->idproducto.'">'.$c->idproducto.'-'.$c->producto.'</option>
                         ';}
                     ?>
                 </select>
@@ -320,7 +326,7 @@
                     <?php
                         foreach($producto as $c){
                             echo '
-                            <option value="'.$c->idproducto.'">'.$c->producto.'</option>
+                            <option value="'.$c->idproducto.'">'.$c->idproducto.'-'.$c->producto.'</option>
                         ';}
                     ?>
                 </select>
@@ -338,7 +344,7 @@
                 <button class="btn btn-warning mt-5" type="reset"> Cancelar</button>
 
             </form>
-
+            	<hr id="ingresos">
                 <hr>
                 <h3>PROYECCIÓN DE INGRESOS</h3>
                 <hr>
@@ -361,7 +367,7 @@
                     <?php
                         foreach($producto as $c){
                             echo '
-                            <option value="'.$c->idproducto.'">'.$c->producto.'</option>
+                            <option value="'.$c->idproducto.'">'.$c->idproducto.'-'.$c->producto.'</option>
                         ';}
                     ?>
                 </select>
@@ -373,7 +379,7 @@
 						         <?php
 				                        foreach($prog_mes_ing as $c){
 				                            echo '
-				                            <option value="'.$c->idprog_mes_ing.'">'.$c->programado_mes1.'</option>
+				                            <option value="'.$c->idprog_mes_ing.'">'.$c->programado_mes1.'-('.$c->mes1.')-'.$c->idproducto.'</option>
 				                        ';}
 				                    ?>
 				                </select>
@@ -386,7 +392,7 @@
 						         <?php
 				                        foreach($prog_anual_ing as $c){
 				                            echo '
-				                            <option value="'.$c->idprog_anual_ing.'">'.$c->programado1.'</option>
+				                            <option value="'.$c->idprog_anual_ing.'">'.$c->programado1.'- ('.$c->anho1.')-'.$c->idproducto.' </option>
 				                        ';}
 				                    ?>
 				                </select>
@@ -430,7 +436,7 @@
                     <?php
                         foreach($producto as $c){
                             echo '
-                            <option value="'.$c->idproducto.'">'.$c->producto.'</option>
+                            <option value="'.$c->idproducto.'">'.$c->idproducto.'-'.$c->producto.'</option>
                         ';}
                     ?>
                 </select>
@@ -441,7 +447,7 @@
 						         <?php
 				                        foreach($prog_anual_ing as $c){
 				                            echo '
-				                            <option value="'.$c->idprog_anual_ing.'">'.$c->programado1.'</option>
+				                            <option value="'.$c->idprog_anual_ing.'">'.$c->programado1.'-('.$c->anho1.')-('.$c->idproducto.')</option>
 				                        ';}
 				                    ?>
 				                </select>
@@ -503,7 +509,7 @@
 						      <input type="money" id="tbpresupuesto" name="tbpresupuesto" class="form-control" placeholder="Ingrese presupuesto...">
 						    </div>
 						    <div class="mb-3">
-						      <label for="tganacia_mensual" class="form-label">Ganancia Mensual (Bs)</label>
+						      <label for="tganacia_mensual" class="form-label">Gastos Mensual (Bs)</label>
 						      <input type="money" id="tbganacia_mensual" name="tbganacia_mensual" class="form-control" placeholder="Monto...">
 						    </div>
 						    <div class="mb-3">
@@ -535,20 +541,35 @@
 				                </select>
 						    </div>
 						    <div class="mb-3">
-						      <label for="tbdetalle" class="form-label">Detalle</label>
-				                <select id="tbdetalle" name="cbdetalle"  class="form-control form-select form-select-lg mb-3">
-				                    <option value="RECURSOS CORRIENTES" >RECURSOS CORRIENTES</option>
-				                    <option value="GASTOS CORRIENTES" >GASTOS CORRIENTES</option>
+						      <label for="tbmes" class="form-label">MESES</label>
+				                <select id="tbmes" name="cbmes"  class="form-control form-select form-select-lg mb-3">
+				                    <option value="ENERO" >ENERO</option>
+				                    <option value="FEBRERO" >FEBRERO</option>
+				                    <option value="MARZO" >MARZO</option>
+				                    <option value="ABRIL" >ABRIL</option>
+				                    <option value="MAYO" >MAYO</option>
+				                    <option value="JUNIO" >JUNIO</option>
+				                    <option value="JULIO" >JULIO</option>
+				                    <option value="AGOSTO" >AGOSTO</option>
+				                    <option value="SEPTIEMBRE" >SEPTIEMBRE</option>
+				                    <option value="OCTUBRE" >OCTUBRE</option>
+				                    <option value="NOVIEMBRE" >NOVIEMBRE</option>
+				                    <option value="DICIEMBRE" >DICIEMBRE</option>
 				                </select>
 						    </div>
 						     <div class="mb-3">
-						      <label for="tmensual" class="form-label">Estado mensual (Bs)</label>
-						      <input type="money" id="tbmensual" name="tbmensual" class="form-control" placeholder="Ingrese monto...">
+						      <label for="trecursos_corrientes" class="form-label">Recursos corrientes</label>
+						      <input type="money" id="tbrecursos_corrientes" name="tbrecursos_corrientes" class="form-control" placeholder="Ingrese monto...">
+						    </div>
+						    <div class="mb-3">
+						      <label for="tgastos_corrientes" class="form-label">Gastos corrientes</label>
+						      <input type="money" id="tbgastos_corrientes" name="tbgastos_corrientes" class="form-control" placeholder="Ingrese monto...">
 						    </div>
 						    <div class="mb-3">
 						      <label for="tfecha4" class="form-label">Fecha</label>
-						      <input type="month" id="tbfecha4" name="tbfecha4" class="form-control" placeholder="Ingrese fecha...">
+						      <input type="date" id="tbfecha4" name="tbfecha4" class="form-control" placeholder="Ingrese fecha...">
 						    </div>
+
 						    <input type="submit" value="Guardar" class="btn btn-success mt-5">
                 <button class="btn btn-warning mt-5" type="reset"> Cancelar</button>
             </form>

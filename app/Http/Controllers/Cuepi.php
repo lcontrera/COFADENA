@@ -16,22 +16,45 @@ use App\models\Mprog_anual_prod;
 use App\models\Mprog_mes_prod;
 use App\models\Mprog_anual_ing;
 use App\models\Mprog_mes_ing;
-
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 
 
 class Cuepi extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+ public function buscar(Request $request)
+    {
+        $ejecutado_prods = Mejecutado_prod::select('ejecutado_prods.idproducto', 'productos.idproducto', 'productos.idproducto', 'productos.producto')
+            ->getejecutado_prods($request->tbBuscar);
+
+
+
+       // return dd($ejecutado_prods);
+
+            //echo $ejecutado_prods;
+            //return redirect()->back()->with('ejecutado_prods',$ejecutado_prods);
+
+       return view('empresas/Vuepi',['ejecutado_prods'=>$ejecutado_prods]);
+    }
+    public function rangofechaprod(){
+
+
+    }
+     public function indexgraph(){
+        $ejecucion_gastoss = Mejecucion_gastos::getejecucion_gastoss("6");
+        $presupuestogastad = Mpresupuestogastado::getpresupuestogastadJSON("6");
+        //print_r($ejecucion_gastos);
+        return view('principal/VInicio')
+            ->with(['ejecucion_gastoss'=>$ejecucion_gastoss,
+                    'presupuestogastad'=>$presupuestogastad,
+        ]);
+
+     }
     public function index()
     {
-            $prog_anual_prods = Mprog_anual_prod::getprog_anual_prods('6');
+        $prog_anual_prods = Mprog_anual_prod::getprog_anual_prods('6');
             $empresa = Mempresas::getempresa('6');
             $productos = Mproductos::getproductos('6');
             $ejecutado_prods = Mejecutado_prod::getejecutado_prods('6');
@@ -42,6 +65,7 @@ class Cuepi extends Controller
               $prog_mes_prods = Mprog_mes_prod::getprog_mes_prods('6');
               $prog_mes_ings = Mprog_mes_ing::getprog_mes_ings('6');
               $presupuestogastados = Mpresupuestogastado::getpresupuestogastados('6');
+              $presupuestogastad = Mpresupuestogastado::getpresupuestogastad('6');
                $ejecucion_gastoss = Mejecucion_gastos::getejecucion_gastoss('6');
                $inventario_productoss = Minventario_productos::getinventario_productoss('6');
                $cuentas_cobros = Mcuentas::getcuentas_cobros('6');
@@ -58,12 +82,14 @@ class Cuepi extends Controller
                 'prog_mes_prods'=>$prog_mes_prods,
                 'prog_mes_ings'=>$prog_mes_ings,
                 'presupuestogastados'=>$presupuestogastados,
+                'presupuestogastad'=>$presupuestogastad,
                 'ejecucion_gastoss'=>$ejecucion_gastoss,
                 'inventario_productoss'=>$inventario_productoss,
                 'cuentas_cobros'=>$cuentas_cobros,
             ]);
 
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -72,7 +98,9 @@ class Cuepi extends Controller
     public function create()
     {
         return view('empresas/Vfichas');
-    }
+        //return view('empresas/Vproductos');
+
+          }
 
     /**
      * Store a newly created resource in storage.
@@ -80,20 +108,10 @@ class Cuepi extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+       //
     }
 
     /**
@@ -104,9 +122,12 @@ class Cuepi extends Controller
      */
     public function edit($id)
     {
+
         $empresas1 = Mempresas::find($id);
 
         return view('edit/Veditemp',['empresas1'=>$empresas1]);
+        //$empresas1 = Mempresas::getempresas1($id);
+        //return view('edit/Veditemp',['$empresas1=>$empresas1']);
     }
 
     /**
@@ -116,9 +137,157 @@ class Cuepi extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+      public function editpro($id)
+    {
+
+        $productos1 = Mproductos::find($id);
+
+        return view('edit/Veditprod',['productos1'=>$productos1]);
+        //$empresas1 = Mempresas::getempresas1($id);
+        //return view('edit/Veditemp',['$empresas1=>$empresas1']);
+    }
+
+    public function editproganual($id)
+    {
+
+        $prog_anual_prodd = Mprog_anual_prod::find($id);
+
+        return view('edit/Vprodanual',['prog_anual_prodd'=>$prog_anual_prodd]);
+        //$empresas1 = Mempresas::getempresas1($id);
+        //return view('edit/Veditemp',['$empresas1=>$empresas1']);
+    }
+    public function editproganualing($id)
+    {
+
+        $prog_anual_ingg = Mprog_anual_ing::find($id);
+        //dd ($prog_anual_ingg);
+        return view('edit/Vproganualing',['prog_anual_ingg'=>$prog_anual_ingg]);
+        //$empresas1 = Mempresas::getempresas1($id);
+        //return view('edit/Veditemp',['$empresas1=>$empresas1']);
+    }
+
+
+     public function editprogmensual($id)
+    {
+
+        $prog_mensual_prodd = Mprog_mes_prod::find($id);
+
+        return view('edit/Vprogmensual',['prog_mensual_prodd'=>$prog_mensual_prodd]);
+        //$empresas1 = Mempresas::getempresas1($id);
+        //return view('edit/Veditemp',['$empresas1=>$empresas1']);
+    }
+    public function editprogmensualing($id)
+    {
+
+        $prog_mensual_ingg = Mprog_mes_ing::find($id);
+
+        return view('edit/Vprogmensualing',['prog_mensual_ingg'=>$prog_mensual_ingg]);
+        //$empresas1 = Mempresas::getempresas1($id);
+        //return view('edit/Veditemp',['$empresas1=>$empresas1']);
+    }
     public function update(Request $request, $id)
     {
-        //
+         // >>> getproducto(id)
+        $empresas1 = Mempresas::getempresas1($id);
+        // >>> setDatos()
+        $empresas1->empresa= $request->tbempresa;
+        $empresas1->descripcion=$request->tbdescripcion;
+        $empresas1->gerente=$request->tbgerente;
+        $empresas1->telefono=$request->tbtelefono;
+        $empresas1->direccion=$request->tbdireccion;
+        // >>> update()
+        $empresas1->update();
+        // === index()
+
+        return Redirect::to('/uepi');
+
+
+    }
+    public function updatepro(Request $request, $id)
+    {
+         // >>> getproducto(id)
+        $productos1 = Mproductos::getproducto1($id);
+        // >>> setDatos()
+        $productos1->producto= $request->tbproducto;
+        $productos1->descripcionn=$request->tbdescripcionn;
+        $productos1->unidad=$request->tbunidad;
+
+        // >>> update()
+        $productos1->update();
+        // === index()
+
+        return Redirect::to('/uepi');
+
+
+    }
+
+    public function updateproganual(Request $request, $id)
+    {
+         // >>> getproducto(id)
+        $prog_anual_prodd = Mprog_anual_prod::getprog_anual_prodd($id);
+        // >>> setDatos()
+        $prog_anual_prodd->programado= $request->tbprogramado;
+        $prog_anual_prodd->anho=$request->tbanho;
+
+        // >>> update()
+        $prog_anual_prodd->update();
+        // === index()
+
+        return Redirect::to('/uepi');
+
+
+    }
+
+    public function updateproganualing(Request $request, $id)
+    {
+         // >>> getproducto(id)
+        $prog_anual_ingg = Mprog_anual_ing::getprog_anual_ingg($id);
+        // >>> setDatos()
+        $prog_anual_ingg->programado1= $request->tbprogramado;
+        $prog_anual_ingg->anho1=$request->tbanho;
+
+        // >>> update()
+        $prog_anual_ingg->update();
+        // === index()
+
+        return Redirect::to('/uepi');
+
+
+    }
+
+    public function updateprogmensual(Request $request, $id)
+    {
+         // >>> getproducto(id)
+        $prog_mensual_prodd = Mprog_mes_prod::getprog_mensual_prodd($id);
+        // >>> setDatos()
+        $prog_mensual_prodd->programado_mes= $request->tbprogmensual;
+        $prog_mensual_prodd->mes=$request->tbmes;
+
+
+        // >>> update()
+        $prog_mensual_prodd->update();
+        // === index()
+
+        return Redirect::to('/uepi');
+
+
+    }
+    public function updateprogmensualing(Request $request, $id)
+    {
+         // >>> getproducto(id)
+        $prog_mensual_ingg = Mprog_mes_ing::getprog_mensual_ing($id);
+        // >>> setDatos()
+        $prog_mensual_ingg->programado_mes1= $request->tbprogmensual;
+        $prog_mensual_prodd->mes1=$request->tbmes;
+
+
+        // >>> update()
+        $prog_mensual_prodd->update();
+        // === index()
+
+        return Redirect::to('/uepi');
+
+
     }
 
     /**
@@ -127,8 +296,79 @@ class Cuepi extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+        public function destroyprod(int $idproducto1)
     {
-        //
+        //$producto1 = Mproductos::findOrFail($id_producto);
+             $produccion = Mejecutado_prod::findOrFail($idproducto1);
+        //dd($pro);
+        //$producto1 = Mproductos::getproducto1($id);
+               $produccion->delete();
+        return Redirect::to('/uepi');
+
     }
+
+public function destroying(int $idproyeccion_ingresos)
+    {
+        //$producto1 = Mproductos::findOrFail($id_producto);
+        $proyeccion_ingresoss = Mproyeccion_ingresos::findOrFail($idproyeccion_ingresos);
+        //dd($pro);
+        //$producto1 = Mproductos::getproducto1($id);
+               $proyeccion_ingresoss->delete();
+        return Redirect::to('/uepi');
+
+    }
+    public function destroyprog(int $idprogramacion_ingresos)
+    {
+        //$producto1 = Mproductos::findOrFail($id_producto);
+        $programacion_ingresoss = Mprogramacion_ingresos::findOrFail($idprogramacion_ingresos);
+        //dd($pro);
+        //$producto1 = Mproductos::getproducto1($id);
+               $programacion_ingresoss->delete();
+        return Redirect::to('/uepi');
+
+    }
+    public function destroypres(int $idpresupuestogastado)
+    {
+        //$producto1 = Mproductos::findOrFail($id_producto);
+        $presupuestogastados = Mpresupuestogastado::findOrFail($idpresupuestogastado);
+        //dd($pro);
+        //$producto1 = Mproductos::getproducto1($id);
+               $presupuestogastados->delete();
+        return Redirect::to('/uepi');
+
+    }
+    public function destroyinv(int $idinventarios)
+    {
+        //echo('test3');
+        //$producto1 = Mproductos::findOrFail($id_producto);
+        $inventario_productoss = Minventario_productos::findOrFail($idinventarios);
+        //dd($pro);
+        //$producto1 = Mproductos::getproducto1($id);
+               $inventario_productoss->delete();
+        return Redirect::to('/uepi');
+
+    }
+      public function destroycue(int $idcuentas)
+    {
+        //$producto1 = Mproductos::findOrFail($id_producto);
+        $cuentas_cobros = Mcuentas::findOrFail($idcuentas);
+        //dd($pro);
+        //$producto1 = Mproductos::getproducto1($id);
+               $cuentas_cobros->delete();
+        return Redirect::to('/uepi');
+
+    }
+    public function destroyeg(int $idejecuciongastos)
+    {
+        //$producto1 = Mproductos::findOrFail($id_producto);
+             $ejecucion_gastoss = Mejecucion_gastos::findOrFail($idejecuciongastos);
+        //dd($pro);
+        //$producto1 = Mproductos::getproducto1($id);
+               $ejecucion_gastoss->delete();
+        return Redirect::to('/uepi');
+
+    }
+
+
+
 }

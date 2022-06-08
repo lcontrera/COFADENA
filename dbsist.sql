@@ -152,6 +152,7 @@ CREATE TABLE programacion_ingresos(
     idprogramacion_ingresos serial not null primary key,
     idempresa integer,
     idproducto integer,
+    idprog_anual_ing integer,
     Obs varchar,
     /*programado_mes2 decimal,*/
     fecha3 date,
@@ -162,12 +163,15 @@ CREATE TABLE programacion_ingresos(
     total_anual decimal,
     porcentaje_ejecucion_anual decimal,
     fecha date default now(),
-    foreign key (idproducto) references productos (idproducto)
+    foreign key (idproducto) references productos (idproducto),
+    foreign key (idprog_anual_ing) references 	prog_anual_ing(idprog_anual_ing)
        
 );
 
-insert into programacion_ingresos(idempresa, idproducto, fecha3, cantidad, precio) values
-(2, 2,'23-02-2022', 30780.00, 307);
+insert into programacion_ingresos(idempresa, idproducto, idprog_anual_ing, fecha3, cantidad, precio) values
+(1, 3, 3 ,'23-02-2022', 30780.00, 307),
+(1, 3, 3 ,'20-02-2022', 307880.00, 30),
+(1, 4, 4 ,'20-03-2022', 3078.00, 37);
 
 select * from programacion_ingresos;
 
@@ -184,23 +188,47 @@ create table presupuestogastado(
     foreign key (idempresa) references empresas (idempresa)
 );
 
-insert into presupuestogastado (idempresa, grupo, presupuesto_anual, fecha)  values
-(3, 'SERVICIOS PERSONALES', 1059351.00,'11-03-2022'),
-(3, 'SERVICIOS NO PERSONALES', 7610419.00,'11-02-2022'),
-(3, 'MATERIALES Y SUMINISTROS', 1059351.00,'12-03-2022'),
-(3, 'ACTIVOS REALES', 568760.00,'11-12-2021'),
-(3, 'ACTIVOS FINANCIEROS', 2500.03,'11-03-2022'),
-(3, 'SERVICIO DE LA DEUDA PUBLICA Y DISMINUCION', 10194606.00,'11-03-2021'),
-(3, 'IMPUESTOS, REGALIAS Y TASAS', 1262185,'11-03-2021');
+insert into presupuestogastado (idempresa, grupo, ganancia_mensual, presupuesto_anual, fecha)  values
+(1, 'SERVICIOS PERSONALES', 0.00,1059351.00,'2020-01'),
+(1, 'SERVICIOS NO PERSONALES', 3054.09, 7610419.00,'2020-01'),
+(1, 'MATERIALES Y SUMINISTROS', 2593.38, 1059351.00,'2020-01'),
+(1, 'ACTIVOS REALES', 0, 568760.00,'2020-01'),
+(1, 'ACTIVOS FINANCIEROS', 0, 2500.03,'2020-01'),
+(1, 'SERVICIO DE LA DEUDA PUBLICA Y DISMINUCION', 29148.56, 10194606.00,'2020-01'),
+(1, 'IMPUESTOS, REGALIAS Y TASAS', 248.19, 1262185,'2020-01'),
+(1, 'SERVICIOS PERSONALES', 10.00,1059351.00,'2020-02'),
+(1, 'SERVICIOS NO PERSONALES', 3054.09, 7610419.00,'2020-02'),
+(1, 'MATERIALES Y SUMINISTROS', 2593.38, 1059351.00,'2020-02'),
+(1, 'ACTIVOS REALES', 1000, 568760.00,'2020-02'),
+(1, 'ACTIVOS FINANCIEROS', 20, 2500.03,'2020-02'),
+(1, 'SERVICIO DE LA DEUDA PUBLICA Y DISMINUCION', 148.56, 10194606.00,'2020-02'),
+(1, 'IMPUESTOS, REGALIAS Y TASAS', 2408.19, 1262185,'2020-02')
+(1, 'SERVICIOS PERSONALES', 10.00,1059351.00,'2020-06'),
+(1, 'SERVICIOS NO PERSONALES', 3054.09, 7610419.00,'2020-06'),
+(1, 'MATERIALES Y SUMINISTROS', 2593.38, 1059351.00,'2020-06'),
+(1, 'ACTIVOS REALES', 1000, 568760.00,'2020-06'),
+(1, 'ACTIVOS FINANCIEROS', 20, 2500.03,'2020-06'),
+(1, 'SERVICIO DE LA DEUDA PUBLICA Y DISMINUCION', 148.56, 10194606.00,'2020-06'),
+(1, 'IMPUESTOS, REGALIAS Y TASAS', 2408.19, 1262185,'2020-06')
+(1, 'SERVICIOS PERSONALES', 10.00,1059351.00,'2020-05'),
+(1, 'SERVICIOS NO PERSONALES', 3054.09, 7610419.00,'2020-05'),
+(1, 'MATERIALES Y SUMINISTROS', 2593.38, 1059351.00,'2020-05'),
+(1, 'ACTIVOS REALES', 1000, 568760.00,'2020-05'),
+(1, 'ACTIVOS FINANCIEROS', 20, 2500.03,'2020-05'),
+(1, 'SERVICIO DE LA DEUDA PUBLICA Y DISMINUCION', 148.56, 10194606.00,'2020-05'),
+(1, 'IMPUESTOS, REGALIAS Y TASAS', 2408.19, 1262185,'2020-05');
 
 select * from presupuestogastado;
 
 create table ejecucion_gastos(
     idejecuciongastos serial not null primary key,
     idempresa integer,
-    ejecucion_gastos varchar,
-    fecha4 varchar,
-    ganancia_mensual money,
+    mes varchar,
+    recursos_corrientes decimal,
+    gastos_corrientes decimal,
+    ganancia_mensual decimal,
+    fecha4 date,
+    ganancia_perdida decimal,
     total_anual decimal,
     foreign key (idempresa) references empresas (idempresa)
 );
@@ -209,14 +237,21 @@ insert into ejecucion_gastos(idempresa, ejecucion_gastos, fecha4) values
 (2, 'RECURSOS CORRIENTES', '23-02-2022'),
 (3, 'GASTOS CORRIENTES', '23-02-2022');
 
+
+
 create table inventario_productos(
     idinvetarios serial NOT NULL PRIMARY KEY,
     idempresa integer,
+    cod_proy varchar,
+    departemento varchar,
     detalle varchar,
     unidad1 varchar,
+    monto_contratado decimal,
     cantidad1 integer,
     costo_unitario money,
     costo_tota87 decimal,
+    multas decimal,
+    utilidad_neta decimal,
     fecha5 varchar,
     foreign key (idempresa) references empresas (idempresa)
     

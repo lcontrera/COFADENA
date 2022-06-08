@@ -19,6 +19,7 @@ use App\models\Mprog_mes_ing;
 
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class Cuerh extends Controller
 {
@@ -27,6 +28,41 @@ class Cuerh extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function indexgraph(){
+
+        $ejecucion_gastoss = Mejecucion_gastos::getejecucion_gastoss("1");
+        $presupuestogastadJson = Mpresupuestogastado::getpresupuestogastadJSON("1");
+
+        //print_r($ejecucion_gastos);
+        return view('principal/VInicio')
+            ->with(['ejecucion_gastoss'=>$ejecucion_gastoss,
+                    'presupuestogastadJson'=>$presupuestogastadJson,
+
+        ]);
+
+     }
+
+            public function buscar(Request $request)
+    {
+        $ejecutado_prods = Mejecutado_prod::select('ejecutado_prods.idproducto', 'productos.idproducto', 'productos.idproducto', 'productos.producto')
+            ->getejecutado_prods($request->tbBuscar);
+
+
+
+       // return dd($ejecutado_prods);
+
+            //echo $ejecutado_prods;
+            //return redirect()->back()->with('ejecutado_prods',$ejecutado_prods);
+
+       return view('empresas/Vuerh',['ejecutado_prods'=>$ejecutado_prods]);
+    }
+
+    public function rangofechaprod(){
+
+
+    }
+
+
     public function index()
     {
         $prog_anual_prods = Mprog_anual_prod::getprog_anual_prods('1');
@@ -40,9 +76,11 @@ class Cuerh extends Controller
               $prog_mes_prods = Mprog_mes_prod::getprog_mes_prods('1');
               $prog_mes_ings = Mprog_mes_ing::getprog_mes_ings('1');
               $presupuestogastados = Mpresupuestogastado::getpresupuestogastados('1');
+              $presupuestogastad = Mpresupuestogastado::getpresupuestogastad('1');
                $ejecucion_gastoss = Mejecucion_gastos::getejecucion_gastoss('1');
                $inventario_productoss = Minventario_productos::getinventario_productoss('1');
                $cuentas_cobros = Mcuentas::getcuentas_cobros('1');
+               $presupuestogastadJson = Mpresupuestogastado::getpresupuestogastadJSON("1");
             //print_r($empresas);
         return view('empresas/Vuerh')
             ->with ([
@@ -56,9 +94,11 @@ class Cuerh extends Controller
                 'prog_mes_prods'=>$prog_mes_prods,
                 'prog_mes_ings'=>$prog_mes_ings,
                 'presupuestogastados'=>$presupuestogastados,
+                'presupuestogastad'=>$presupuestogastad,
                 'ejecucion_gastoss'=>$ejecucion_gastoss,
                 'inventario_productoss'=>$inventario_productoss,
                 'cuentas_cobros'=>$cuentas_cobros,
+                 'presupuestogastadJson'=>$presupuestogastadJson,
             ]);
 
     }
@@ -81,51 +121,7 @@ class Cuerh extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-         // >>> construct()
-        $producto = new Mproductos();
-        // >>> setDatos()
-        $producto->producto = $request->tbproducto;
-        $producto->descripcion = $request->tbdescripcion;
-        $producto->unidad = $request->tbunidad;
-        // >>> save()
-        $producto->save();
-        // === index()
-        return Redirect::to('/productos');
-        // >>> construct()
-        $prog_anual_prod = new Mprog_anual_ing();
-        // >>> setDatos()
-        $prog_anual_prod->idproducto = $request->cbproducto;
-        $prog_anual_prod->programado = $request->tbprog_anual_prod;
-        $prog_anual_prod->anho = $request->tbaño;
-        $prog_anual_prod->estado = 1;
-        $prog_anual_prod->save();
 
-        return Redirect::to('/prog_anual_prod');
-
-/*
-           // >>> construct()
-        $produccion = new Mejecutado_prod();
-        // >>> setDatos()
-        $produccion->cantidad_ejecutada = $request->tbcantidad_ejecutada;
-        $produccion->cumplimiento_porcentaje = $request->tbcumplimiento_porcentaje;
-        $produccion->total_prod_mes = $request->tbtotal_prod_mes;
-        $produccion->porcentaje_cumplimiento = $request->tbporcentaje_cumplimiento;
-        $produccion->porcentaje_uso_anual = $request->tbporcentaje_cumplimiento_anual;
-        $produccion->fecha1 = $request->tbfecha1;
-        // >>> save()
-        $produccion->save();
-        // === index()
-        return Redirect::to('/produccion');*/
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
        //
@@ -173,6 +169,16 @@ class Cuerh extends Controller
         //$empresas1 = Mempresas::getempresas1($id);
         //return view('edit/Veditemp',['$empresas1=>$empresas1']);
     }
+    public function editproganualing($id)
+    {
+
+        $prog_anual_ingg = Mprog_anual_ing::find($id);
+        //dd ($prog_anual_ingg);
+        return view('edit/Vproganualing',['prog_anual_ingg'=>$prog_anual_ingg]);
+        //$empresas1 = Mempresas::getempresas1($id);
+        //return view('edit/Veditemp',['$empresas1=>$empresas1']);
+    }
+
 
      public function editprogmensual($id)
     {
@@ -180,6 +186,15 @@ class Cuerh extends Controller
         $prog_mensual_prodd = Mprog_mes_prod::find($id);
 
         return view('edit/Vprogmensual',['prog_mensual_prodd'=>$prog_mensual_prodd]);
+        //$empresas1 = Mempresas::getempresas1($id);
+        //return view('edit/Veditemp',['$empresas1=>$empresas1']);
+    }
+    public function editprogmensualing($id)
+    {
+
+        $prog_mensual_ingg = Mprog_mes_ing::find($id);
+
+        return view('edit/Vprogmensualing',['prog_mensual_ingg'=>$prog_mensual_ingg]);
         //$empresas1 = Mempresas::getempresas1($id);
         //return view('edit/Veditemp',['$empresas1=>$empresas1']);
     }
@@ -204,10 +219,10 @@ class Cuerh extends Controller
     public function updatepro(Request $request, $id)
     {
          // >>> getproducto(id)
-        $productos1 = Mproductos::getproductos1($id);
+        $productos1 = Mproductos::getproducto1($id);
         // >>> setDatos()
         $productos1->producto= $request->tbproducto;
-        $productos1->descripcion=$request->tbdescripcion;
+        $productos1->descripcionn=$request->tbdescripcionn;
         $productos1->unidad=$request->tbunidad;
 
         // >>> update()
@@ -236,6 +251,23 @@ class Cuerh extends Controller
 
     }
 
+    public function updateproganualing(Request $request, $id)
+    {
+         // >>> getproducto(id)
+        $prog_anual_ingg = Mprog_anual_ing::getprog_anual_ingg($id);
+        // >>> setDatos()
+        $prog_anual_ingg->programado1= $request->tbprogramado;
+        $prog_anual_ingg->anho1=$request->tbanho;
+
+        // >>> update()
+        $prog_anual_ingg->update();
+        // === index()
+
+        return Redirect::to('/uerh');
+
+
+    }
+
     public function updateprogmensual(Request $request, $id)
     {
          // >>> getproducto(id)
@@ -253,6 +285,23 @@ class Cuerh extends Controller
 
 
     }
+    public function updateprogmensualing(Request $request, $id)
+    {
+         // >>> getproducto(id)
+        $prog_mensual_ingg = Mprog_mes_ing::getprog_mensual_ing($id);
+        // >>> setDatos()
+        $prog_mensual_ingg->programado_mes1= $request->tbprogmensual;
+        $prog_mensual_prodd->mes1=$request->tbmes;
+
+
+        // >>> update()
+        $prog_mensual_prodd->update();
+        // === index()
+
+        return Redirect::to('/uerh');
+
+
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -260,15 +309,79 @@ class Cuerh extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id_producto)
+        public function destroyprod(int $idproducto1)
     {
         //$producto1 = Mproductos::findOrFail($id_producto);
-        $producto1 = Mproductos::findOrFail($id_producto);
+             $produccion = Mejecutado_prod::findOrFail($idproducto1);
         //dd($pro);
         //$producto1 = Mproductos::getproducto1($id);
-        $producto1->delete();
+               $produccion->delete();
         return Redirect::to('/uerh');
 
     }
+
+public function destroying(int $idproyeccion_ingresos)
+    {
+        //$producto1 = Mproductos::findOrFail($id_producto);
+        $proyeccion_ingresoss = Mproyeccion_ingresos::findOrFail($idproyeccion_ingresos);
+        //dd($pro);
+        //$producto1 = Mproductos::getproducto1($id);
+               $proyeccion_ingresoss->delete();
+        return Redirect::to('/uerh');
+
+    }
+    public function destroyprog(int $idprogramacion_ingresos)
+    {
+        //$producto1 = Mproductos::findOrFail($id_producto);
+        $programacion_ingresoss = Mprogramacion_ingresos::findOrFail($idprogramacion_ingresos);
+        //dd($pro);
+        //$producto1 = Mproductos::getproducto1($id);
+               $programacion_ingresoss->delete();
+        return Redirect::to('/uerh');
+
+    }
+    public function destroypres(int $idpresupuestogastado)
+    {
+        //$producto1 = Mproductos::findOrFail($id_producto);
+        $presupuestogastados = Mpresupuestogastado::findOrFail($idpresupuestogastado);
+        //dd($pro);
+        //$producto1 = Mproductos::getproducto1($id);
+               $presupuestogastados->delete();
+        return Redirect::to('/uerh');
+
+    }
+    public function destroyinv(int $idinventarios)
+    {
+        //echo('test3');
+        //$producto1 = Mproductos::findOrFail($id_producto);
+        $inventario_productoss = Minventario_productos::findOrFail($idinventarios);
+        //dd($pro);
+        //$producto1 = Mproductos::getproducto1($id);
+               $inventario_productoss->delete();
+        return Redirect::to('/uerh');
+
+    }
+      public function destroycue(int $idcuentas)
+    {
+        //$producto1 = Mproductos::findOrFail($id_producto);
+        $cuentas_cobros = Mcuentas::findOrFail($idcuentas);
+        //dd($pro);
+        //$producto1 = Mproductos::getproducto1($id);
+               $cuentas_cobros->delete();
+        return Redirect::to('/uerh');
+
+    }
+    public function destroyeg(int $idejecuciongastos)
+    {
+        //$producto1 = Mproductos::findOrFail($id_producto);
+             $ejecucion_gastoss = Mejecucion_gastos::findOrFail($idejecuciongastos);
+        //dd($pro);
+        //$producto1 = Mproductos::getproducto1($id);
+               $ejecucion_gastoss->delete();
+        return Redirect::to('/uerh');
+
+    }
+
+
 
 }

@@ -11,7 +11,13 @@
     @yield('css')
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-    <!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css" href="{{asset('datatables/datatables.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('datatables/DataTables-1.12.0/css/dataTables.bootstrap5.min.css')}}">
+     <!--font awesome con CDN-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <!--Custom styles for this template-->
     <link href="{{asset('css/dashboard.css')}}" rel="stylesheet">
 
 
@@ -19,13 +25,11 @@
     <title>SSCTA - COFADENA</title>
 
   </head>
-<!-- **************************************
+<!--**************************************
                 BODY
-     ************************************** -->
+     **************************************-->
   <body>
-<!-- --------------------------------------
-                HEADER
-     -------------------------------------- -->
+
     <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
       <a class="navbar-brand col-12 col-md-3 col-lg-2 me-0 px-3" href="https://www.bcb.gob.bo/librerias/indicadores/otras/ultimo.php">TIPO DE CAMBIO</a>
       <button class="navbar-toggler position-absolute d-md-none collapsed"  type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,9 +38,7 @@
       <label class="fs-3 text-center text-light w-100">SISTEMA DE SEGUIMIENTO Y CONTROL TECNICO ADMINISTRATIVO - COFADENA</label>
     </header>
 
-        <!-- --------------------------------------
-                NAV
-     -------------------------------------- -->
+
     <div class="container-fluid">
       <div class="row">
         <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
@@ -44,7 +46,7 @@
             <ul class="nav flex-column">
               <li class="nav-item">
 
-                <!-- >>> index()  -->
+
 
                 <a class="nav-link active" aria-current="page" href="/inicio">
                     <span data-feather="home"></span>
@@ -52,7 +54,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <!-- >>> index() -->
+
                 <a class="nav-link" href="/empresas">
                   <span data-feather="layers"></span>
                   EMPRESAS
@@ -86,9 +88,7 @@
             </ul>
           </div>
         </nav>
-        <!-- --------------------------------------
-                MAIN
-     -------------------------------------- -->
+
         <main class=" col-md-9 ms-sm-auto col-lg-10 px-md-4">
             @yield('contenido')
             <img src="{{asset('img/bg.png')}}" alt="" class="img-fluid">
@@ -103,8 +103,31 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-    <script src="{{asset('js/dashboard.js')}}"></script>
-  @yield('js')
+
+
+   <script src="{{asset('js/dashboard.js')}}"></script>
+   @yield('js')
+
+   <!-- jQuery, Popper.js, Bootstrap JS -->
+
+    <script src="{{asset('popper/popper.min.js')}}"></script>
+    <script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
+
+    <!-- datatables JS -->
+    <script type="text/javascript" src="{{asset('datatables/datatables.min.js')}}"></script>
+
+    <!-- para usar botones en datatables JS -->
+    <script src="{{asset('datatables/Buttons-2.2.3/js/dataTables.buttons.min.js')}}"></script>
+    <script src="{{asset('datatables/JSZip-2.5.0/jszip.min.js')}}"></script>
+    <script src="{{asset('datatables/pdfmake-0.1.36/pdfmake.min.js')}}"></script>
+    <script src="{{asset('datatables/pdfmake-0.1.36/vfs_fonts.js')}}"></script>
+    <script src="{{asset('datatables/Buttons-2.2.3/js/buttons.html5.min.js')}}"></script>
+   <script src="{{asset('js/jquery-2.1.0.min.js')}}"></script>
+   <script src="{{asset('js/dropdown.js')}}"></script>
+
+    <!-- código JS propìo-->
+    <script type="text/javascript" src="{{asset('js/main.js')}}"></script>
+
      <!--   <main>
 
             <div class="container">

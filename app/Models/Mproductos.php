@@ -17,7 +17,7 @@ class Mproductos extends Model
     protected $fillable = [
         'idempresa',
         'producto',
-        'descripcion',
+        'descripcionn',
         'unidad'
     ];
 
@@ -43,10 +43,8 @@ class Mproductos extends Model
 
                 return $producto1;
             }
-             public static function getproductos1($id){
-        $productos1 = Mproductos::find($id);
-
-        return $productos1;
-    }
+            // public static function productosselect($id){
+               // return Mproductos::where('idempresa','=',$id)->get();
+    //}
 
 }

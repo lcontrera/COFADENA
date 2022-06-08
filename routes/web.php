@@ -16,7 +16,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/inicio','Cprincipal@index');
+//Route::get('uerh/produccion', [Mejecutado_prod::class, 'ejecutado_prod'])->name('students/records');
+
+//Route::get('/upab','Cupab@indexgraphupab');
+Route::get('/','Cprincipal@indexgraph');
+Route::get('/','Cuerh@indexgraph');
+//Route::get('/','Cupab@indexgraphupab');
+//Route::get('/','Cug23@indexgraph');
+Route::get('/','Cuepi@indexgraph');
+Route::get('/','Cfbmh@indexgraph');
+Route::get('/','Cenauto@indexgraph');
+Route::get('/inicio','Cprincipal@indexgraph');
+//Route::get('/inicio','Cuerh@indexgraphpres');
 Route::get('/fichas','Cprincipal@fichas');
 Route::get('/fichas','Cprincipal@create');
 Route::get('/productos','Cprincipal@create');
@@ -56,12 +67,14 @@ Route::post('/storecuentas','Cprincipal@storecuentas');
 Route::get('/edit/{id}','Cempresas@edit');
 //Route::get('/update/{id}','Cempresas@update');
 //Route::get('/eliminar/{id}','Cempresas@destroy');
+Route::resource('/empresas','Cprincipal');
 Route::resource('/empresas','Cempresas');
 //Route::resource('/presupuestogastado','Cempresas');
 Route::get('/uerh','Cuerh@index');
 Route::resource('/uerh','Cuerh');
 Route::resource('/ug23','Cug23');
 Route::resource('/enauto','Cenauto');
+Route::resource('/uepi','Cuepi');
 Route::resource('/upab','Cupab');
 Route::resource('/ugc23m','Cug23');
 Route::resource('/fbm','Cfbm');
@@ -76,15 +89,27 @@ Route::get('/edit/editprod/{id}','Cuerh@editpro');
 Route::put('/edit/editprod/{id}','Cuerh@updatepro');
 Route::get('/edit/proganual/{id}','Cuerh@editproganual');
 Route::put('/edit/proganual/{id}','Cuerh@updateproganual');
+Route::get('/edit/proganualing/{id}','Cuerh@editproganualing');
+Route::put('/edit/proganualing/{id}','Cuerh@updateproganualing');
+Route::get('/edit/editprogmensualing/{id}','Cuerh@editprogmensual');
+Route::put('/edit/editprogmensualing/{id}','Cuerh@updateprogmensualing');
 Route::get('/edit/editprogmensual/{id}','Cuerh@editprogmensual');
 Route::put('/edit/editprogmensual/{id}','Cuerh@updateprogmensual');
 //Route::get('/uerh/{id}','Cuerh@editpro');
 
-//CREATE
-//Route::get('/productos','Cuerh@productos');
-//Route::post('/productos','Cuerh@store');
+//DELETE
+Route::get('eliminar/{id}','Cuerh@destroy');
+Route::get('/empresas/eliminarprod/{id}','Cuerh@destroyprod');
+Route::get('/empresas/eliminaring/{id}','Cuerh@destroying');
+Route::get('/empresas/eliminarprog/{id}','Cuerh@destroyprog');
+Route::get('/empresas/eliminar/{id}','Cuerh@destroypres');
+Route::get('/empresas/eliminarinv/{id}','Cuerh@destroyinv');
+Route::get('/empresas/eliminarseg/{id}','Cuerh@destroycue');
+Route::get('/empresas/eliminareg/{id}','Cuerh@destroyeg');
+//Graficos
 
-//Route::get('/edit/{id}','Cuerh@edit');
 
-//Route::get('/', [Cuerh::class, 'index']);
-//Route::get('/uerh','Cuerh@index');
+Route::get('productosselect/{id}','Cprincipal@getproduct');
+
+//Busquedas
+Route::get('/ejecutado_prodb','Cuerh@buscar');

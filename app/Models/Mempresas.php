@@ -17,7 +17,10 @@ class Mempresas extends Model
         'descripcion',
         'gerente',
         'telefono',
-        'direccion'
+        'direccion',
+        'anho_creacion',
+        'dec_supremo_doc_creacion',
+        'persona_enlace_cargo'
     ];
     	public $timestamps=false;
 

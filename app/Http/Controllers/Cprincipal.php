@@ -15,15 +15,28 @@ use DB;
 use Illuminate\Support\Facades\Redirect;
 class Cprincipal extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+
+        public function indexgraph(){
+
+        $ejecucion_gastoss = Mejecucion_gastos::getejecucion_gastoss("1");
+        $presupuestogastad = Mpresupuestogastado::getpresupuestogastadJSON("1");
+
+        //print_r($ejecucion_gastos);
+        return view('principal/VInicio')
+            ->with(['ejecucion_gastoss'=>$ejecucion_gastoss,
+                    'presupuestogastad'=>$presupuestogastad,
+
+        ]);
+
+     }
+
+
     public function index()
     {
 
-        return view('principal/Vinicio');
+            //$empresas = Mempresas::list('empresa','idempresa');
+                //return view('empresas/Vfichas',compact('empresas'));
     }
 
 
@@ -48,10 +61,10 @@ class Cprincipal extends Controller
 
  $idempresa = $request->cbempresa;
  $producto = $request->tbproducto;
- $descripcion = $request->tbdescripcion;
+ $descripcionn = $request->tbdescripcionn;
  $unidad = $request->tbunidad;
  //$producto->producto = $request->input('cbproductos');
-      DB::insert('insert into productos (idempresa, producto, descripcion, unidad) values(?, ?, ?, ?)',[$idempresa, $producto, $descripcion, $unidad]);
+      DB::insert('insert into productos (idempresa, producto, descripcionn, unidad) values(?, ?, ?, ?)',[$idempresa, $producto, $descripcionn, $unidad]);
          //$producto->producto = $request->input('cbproductos');
         //$producto->descripcion = $request->tbdescripcion;
         //$producto->unidad = $request->tbunidad;
@@ -156,12 +169,12 @@ public function storeprog_mensual_prod(Request $request)
 
 public function storeproduccion(Request $request)
     {
-  $idempresa = $request->cbempresa;
- $idproducto = $request->cbproducto;
- $prog_mes_prod = $request->cbprog_mensual_prod;
- $idprog_anual_prod = $request->cbprog_anual_prod;
- $cantidad_ejecutada = $request->tbcantidad_ejecutada;
- $fecha1 = $request->tbfecha1;
+        $idempresa = $request->cbempresa;
+        $idproducto = $request->cbproducto;
+        $prog_mes_prod = $request->cbprog_mensual_prod;
+        $idprog_anual_prod = $request->cbprog_anual_prod;
+        $cantidad_ejecutada = $request->tbcantidad_ejecutada;
+        $fecha1 = $request->tbfecha1;
  //$producto->producto = $request->input('cbproductos');
       DB::insert('insert into ejecutado_prod (idempresa, idproducto, idprog_mes_prod, idprog_anual_prod, cantidad_ejecutada, fecha1) values(?, ?, ?, ?,?,?)',[$idempresa, $idproducto,$prog_mes_prod,$idprog_anual_prod, $cantidad_ejecutada, $fecha1]);
 
@@ -227,9 +240,10 @@ public function storeprog_anual_ing(Request $request)
 
 public function storeprog_mensual_ing(Request $request)
     {
+        //dd($request->all());
   $idempresa = $request->cbempresa;
  $idproducto = $request->cbproducto;
- $programado_mes1 = $request->tbprog_mes_ing;
+ $programado_mes1 = $request->tbprog_mensual_ing;
  $mes1 = $request->tbmes;
  //$producto->producto = $request->input('cbproductos');
       DB::insert('insert into prog_mes_ing (idempresa, idproducto, programado_mes1, mes1) values(?, ?, ?, ?)',[$idempresa, $idproducto, $programado_mes1, $mes1]);
@@ -264,11 +278,12 @@ public function storeingresos(Request $request)
     {
   $idempresa = $request->cbempresa;
  $idproducto = $request->cbproducto;
- $idprog_mes_ing = $request->tbprog_mes_ing;
+ $prog_mes_ing = $request->cbprog_mensual_ing;
+ $prog_anual_ing = $request->cbprog_anual_ing;
  $cantidad_ejecutadames = $request->tbcantidad_ejecutada;
  $fecha1 = $request->tbfecha1;
  //$producto->producto = $request->input('cbproductos');
-      DB::insert('insert into proyeccion_ingresos (idempresa, idproducto, idprog_mes_ing, fecha1) values(?, ?, ?, ?)',[$idempresa, $idproducto, $idprog_mes_ing, $fecha1]);
+      DB::insert('insert into proyeccion_ingresos (idempresa, idproducto, idprog_mes_ing, idprog_anual_ing, cantidad_ejecutadames, fecha1) values(?, ?, ?, ?, ?, ?)',[$idempresa, $idproducto, $prog_mes_ing, $prog_anual_ing,  $cantidad_ejecutadames, $fecha1]);
 
 
         switch ($idempresa) {
@@ -299,12 +314,13 @@ public function storeprog_ingresos(Request $request)
     {
   $idempresa = $request->cbempresa;
  $idproducto = $request->cbproducto;
+ $idprog_anual_ing = $request->cbprog_anual_ing;
  $cantidad = $request->tbcantidad;
  $precio = $request->tbprecio;
  $fecha3 = $request->tbfecha3;
 
  //$producto->producto = $request->input('cbproductos');
-      DB::insert('insert into programacion_ingresos (idempresa, idproducto, cantidad, precio, fecha3) values(?, ?, ?, ?, ?)',[$idempresa, $idproducto, $cantidad, $precio, $fecha3]);
+      DB::insert('insert into programacion_ingresos (idempresa, idproducto, idprog_anual_ing, cantidad, precio, fecha3) values(?, ?, ?, ?, ?, ?)',[$idempresa, $idproducto,$idprog_anual_ing, $cantidad, $precio, $fecha3]);
 
 
         switch ($idempresa) {
@@ -369,11 +385,12 @@ public function storepresupuestogastado(Request $request)
 public function storeejecucion_gastos(Request $request)
     {
   $idempresa = $request->cbempresa;
-  $ejecucion_gastos = $request->cbdetalle;
- $ganancia_mensual = $request->tbmensual;
+  $mes = $request->cbmes;
+ $recursos_corrientes = $request->tbrecursos_corrientes;
+ $gastos_corrientes = $request->tbgastos_corrientes;
  $fecha4 = $request->tbfecha4;
 
-      DB::insert('insert into ejecucion_gastos (idempresa, ejecucion_gastos, ganancia_mensual, fecha4) values(?, ?, ?, ?)',[$idempresa, $ejecucion_gastos, $ganancia_mensual, $fecha4]);
+      DB::insert('insert into ejecucion_gastos (idempresa, mes, recursos_corrientes, gastos_corrientes, fecha4) values(?, ?, ?, ?, ?)',[$idempresa, $mes, $recursos_corrientes, $gastos_corrientes, $fecha4]);
 
 
         switch ($idempresa) {
@@ -506,4 +523,11 @@ public function storecuentas(Request $request)
 
 
 }
+
+    public function getproduct(Request $request, $id){
+            if($request->ajax()){
+                $productosselect = Mproductos::productosselect($id);
+                return response()->json($productosselect);
+            }
+    }
 }
